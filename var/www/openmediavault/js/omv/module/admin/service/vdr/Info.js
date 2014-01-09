@@ -19,7 +19,7 @@
 // require("js/omv/workspace/form/Panel.js")
 
 /**
- * @class OMV.module.admin.service.vdr.Settings
+ * @class OMV.module.admin.service.vdr.Info
  * @derived OMV.workspace.form.Panel
  */
 Ext.define("OMV.module.admin.service.vdr.Info", {
@@ -45,27 +45,83 @@ Ext.define("OMV.module.admin.service.vdr.Info", {
                         + '</p>'
                         + '<h3>First time use</h3>'
                         + '<p>'
-                        + '1: Check that your TV Tuner device is detected. Use "Check for Connected Devices" button' + '<br>'
-                        + '2: Set Transponder Type' + '<br>'
-                        + '3: Adjust Transponder Settings' + '<br>'
-                        + '4: Scan Channels' + '<br>'
-                        + '5: After Channel Scan is completed set Recording directory etc.' + '<br>'
-                        + '6: Enable VDR and the features you want.' + '<br>'
+                        + '<ol>'
+                        + '<li>'
+                        + 'Check that your TV Tuner device is detected. Use "Check for Connected Devices" button'
+                        + '</li>'
+                        + '<li>'
+                        + 'Set Transponder Type'
+                        + '</li>'
+                        + '<li>'
+                        + 'Adjust Transponder Settings'
+                        + '</li>'
+                        + '<li>'
+                        + 'Scan Channels'
+                        + '</li>'
+                        + '<li>'
+                        + 'After Channel Scan is completed set Recording directory etc.'
+                        + '</li>'
+                        + '<li>'
+                        + 'Enable VDR and the features you want.'
+                        + '</li>'
+                        + '</ol>'
                         + '</p>'
             }]
         },{
-            /* VDRAdmin-AM info*/
+            /* streamdev info */
+            xtype : "fieldset",
+            layout : "fit",
+            items : [{
+                border  : false,
+                html    : '<h3>VDR-plugin-streamdev-server</h3>'
+                        + '<p>'
+                        + 'VDR-plugin-streamdev-server enables streaming from VDR to other computers in the network.'
+                        + '</p>'
+                        + '<p>'
+                        + 'If you change the streamdev-server port VDR-plugin-live and VDRAdmin-AM parameters are automatically updated to match the port of the streamdev-server.'
+                        + '</p>'
+                        + '<h3>Port</h3>'
+                        + '<p>'
+                        + 'The port setting refers to HTTP port.'
+                        + '</p>'
+                        + '<h3>Allowed hosts</h3>'
+                        + '<p>'
+                        + 'Allowed hosts parameter defines what IP-addresses can connect to the streamdev-server.'
+                        + '</p>'
+                        + '<p>'
+                        + 'This parameter uses CIDR notation. Value "192.168.1.0/24" = Connections are allowed from IP-address range 192.168.1.0-192.168.1.255.'
+                        + 'The parameter can also be just a single IP-address.'
+                        + '</p>'
+            }]
+        },{
+            /* live info */
+            xtype : "fieldset",
+            layout : "fit",
+            items : [{
+                border  : false,
+                html    : '<h3>VDR-plugin-live</h3>'
+                        + '<p>'
+                        + 'VDR-plugin-live  is a web based user interface to VDR.'
+                        + '</p>'
+                        + '<p>'
+                        + 'The default username/password is admin/live. These can be changed from VDR-plugin-live under Setup/Use authentication.'
+                        + '</p>'
+            }]
+        },{
+            /* VDRAdmin-AM info */
             xtype : "fieldset",
             layout : "fit",
             items : [{
                 border  : false,
                 html    : '<h3>VDRAdmin-AM</h3>'
                         + '<p>'
-                        + 'VDRAdmin-AM is a web based user interface to VDR.'  + '<br>'
+                        + 'VDRAdmin-AM is a web based user interface to VDR.'
+                        + '</p>'
+                        + '<p>'
                         + 'The default username/password is linvdr/linvdr. These can be changed from VDRAdmin-AM under Configuration/Identification.'
                         + '</p>'
             }]
-        }]
+        }];
     }
 
 });

@@ -204,14 +204,14 @@ class OMVRpcServiceVdr extends OMVRpcServiceAbstract
 
         // Check if scan is active
         // If active or checking failed return
-        if ($this->scanInProgress())
-            return $scanStatusRet;
+        if ($this->scanInProgress(array(), $context))
+            return;
 
         // Temporary file
         $channelFile = "/tmp/channels.conf";
 
         // Output file type is for VDR 1.7
-        $ouputMode = " -o 7 ";
+        $outputMode = " -o 7 ";
 
         // Parse script based on transponder settings
         $transpoderType = $params['vdr_transpondertype'];
@@ -332,6 +332,9 @@ class OMVRpcServiceVdr extends OMVRpcServiceAbstract
      */
     public function scanInProgress($params, $context)
     {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, array("role" => OMV_ROLE_ADMINISTRATOR));
+
         $cmd = "pgrep -n w_scan 2>&1";
         $pgrepReturn = $this->exec($cmd, $output);
 
@@ -404,12 +407,13 @@ class OMVRpcServiceVdr extends OMVRpcServiceAbstract
         if (0 !== $this->exec($cmd, $output))
             throw new OMVException(OMVErrorMsg::E_EXEC_FAILED,
                 $cmd, implode("\n", $output));
-
-        return $retVal;
     }
 
     public function checkDevices($params, $context)
     {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, array("role" => OMV_ROLE_ADMINISTRATOR));
+
         $cmd = "if [ -d /dev/dvb ]; then ls /dev/dvb; fi";
 
         // If script fails to execute then create an error
